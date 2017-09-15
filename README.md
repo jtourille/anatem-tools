@@ -1,6 +1,6 @@
 # AnatEM Tools
 
-This repository regroups some tools for [AnatEM](http://nactem.ac.uk/anatomytagger/) corpus processing
+This repository regroups some resources for [AnatEM](http://nactem.ac.uk/anatomytagger/) corpus processing.
 
 ## Regroup files
 
