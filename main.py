@@ -5,6 +5,7 @@ import time
 from datetime import timedelta
 
 from anatem.convert import regroup_documents, lower_and_replace, convert_to_one_class
+from anatem.corenlp import add_corenlp_analysis
 
 if __name__ == "__main__":
 
@@ -30,6 +31,13 @@ if __name__ == "__main__":
     parser_convert.add_argument("--input_file", help="Input file path", dest="input_file", type=str,
                                 required=True)
     parser_convert.add_argument("--output_file", help="Output file path", dest="output_file", type=str, required=True)
+
+    # Add corenlp features to corpus
+    parser_corenlp = subparsers.add_parser('CORENLP', help="Add features extracted from CoreNLP")
+    parser_corenlp.add_argument("--input_file", help="Input file path", dest="input_file", type=str,
+                                required=True)
+    parser_corenlp.add_argument("--output_file", help="Output file path", dest="output_file", type=str, required=True)
+    parser_corenlp.add_argument("--corenlp_url", help="CoreNLP server URL", dest="corenlp_url", type=str, required=True)
 
     args = parser.parse_args()
 
@@ -108,3 +116,27 @@ if __name__ == "__main__":
         end = time.time()
 
         logging.info("Done ! (Time elapsed: {})".format(timedelta(seconds=round(end-start))))
+
+    elif args.subparser_name == "CORENLP":
+
+        logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
+
+        # Checking if output file exists
+        if os.path.isfile(os.path.abspath(args.output_file)):
+            raise FileExistsError("The output file already exists: {}".format(
+                os.path.abspath(args.output_file)
+            ))
+
+        # Checking if input file exists
+        if not os.path.isfile(os.path.abspath(args.input_file)):
+            raise FileNotFoundError("The input file you specified does not exist: {}".format(
+                os.path.abspath(args.input_file)
+            ))
+
+        start = time.time()
+
+        add_corenlp_analysis(args.input_file, args.output_file, args.corenlp_url)
+
+        end = time.time()
+
+        logging.info("Done ! (Time elapsed: {})".format(timedelta(seconds=round(end - start))))
