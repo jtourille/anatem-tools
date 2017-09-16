@@ -21,7 +21,7 @@ if __name__ == "__main__":
     parser_regroup.add_argument("--output_file", help="Output file path", dest="output_file", type=str, required=True)
 
     # Lowercase and replace digits in one document
-    parser_preproc = subparsers.add_parser('PREPROC', help="Lowercase and replace digits into one document")
+    parser_preproc = subparsers.add_parser('PREPROC', help="Lowercase and replace digits")
     parser_preproc.add_argument("--input_file", help="Input file path", dest="input_file", type=str,
                                 required=True)
     parser_preproc.add_argument("--output_file", help="Output file path", dest="output_file", type=str, required=True)
