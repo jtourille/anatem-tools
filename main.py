@@ -5,7 +5,7 @@ import time
 from datetime import timedelta
 
 from anatem.convert import regroup_documents, lower_and_replace, convert_to_one_class
-from anatem.corenlp import add_corenlp_analysis
+from anatem.corenlp import add_corenlp_features
 
 if __name__ == "__main__":
 
@@ -135,7 +135,7 @@ if __name__ == "__main__":
 
         start = time.time()
 
-        add_corenlp_analysis(args.input_file, args.output_file, args.corenlp_url)
+        add_corenlp_features(args.input_file, args.output_file, args.corenlp_url)
 
         end = time.time()
 
